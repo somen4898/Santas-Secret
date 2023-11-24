@@ -5,7 +5,8 @@ from django.http import JsonResponse
 from rest_framework import viewsets
 from .models import Participant, EventDetails
 from .serializers import ParticipantSerializer, EventDetailsSerializer
-from .utils import assign_secret_santas, send_secret_santa_emails  # Assuming you have a function to send emails
+from .utils import assign_secret_santas, send_secret_santa_emails, \
+    generate_pairings_response  # Assuming you have a function to send emails
 import json
 
 
@@ -41,6 +42,8 @@ class EventDetailsViewSet(viewsets.ModelViewSet):
         serializer.save()  # Save event details
         participants = list(Participant.objects.all())
         pairings = assign_secret_santas(participants)
+        pairing_response = generate_pairings_response(participants, pairings)
 
-        # Optionally, save pairings to the database or directly send emails
-        send_secret_santa_emails(participants, pairings, serializer.instance)
+        # Include this response in the JSON output
+        self.response = {'event_details': serializer.data, 'pairings': pairing_response}
+

@@ -16,5 +16,16 @@ class Participant(models.Model):
 
 
 class EventDetails(models.Model):
-    budget = models.IntegerField(validators=[validate_positive])
+    budget = models.IntegerField()
     date = models.DateField()
+
+    def __str__(self):
+        return f"Event on {self.date} with budget {self.budget}"
+
+class Pairing(models.Model):
+    gifter = models.ForeignKey(Participant, related_name='gifts_given', on_delete=models.CASCADE)
+    giftee = models.ForeignKey(Participant, related_name='gifts_received', on_delete=models.CASCADE)
+    event = models.ForeignKey(EventDetails, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.gifter.name} -> {self.giftee.name}"

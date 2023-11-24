@@ -23,3 +23,12 @@ def send_secret_santa_emails(participants, pairings, event_details):
         message = f"Hello {participant.name}, you are Secret Santa for {giftee.name}! " \
                   f"The event is on {event_details.date} with a budget of {event_details.budget}."
         send_mail(subject, message, settings.EMAIL_HOST_USER, [participant.email])
+
+
+def generate_pairings_response(participants, pairings):
+    pairing_response = []
+    for participant in participants:
+        giftee = pairings[participant]
+        pairing_info = {'gifter': participant.name, 'giftee': giftee.name}
+        pairing_response.append(pairing_info)
+    return pairing_response
