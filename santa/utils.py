@@ -4,15 +4,20 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 
+from .models import Pairing
 
-def assign_secret_santas(participants):
+
+def assign_secret_santas(participants, event_details):
     shuffled = participants[:]
     random.shuffle(shuffled)
-    pairings = {}
+    pairings = []
     for i in range(len(shuffled)):
         gifter = shuffled[i]
         giftee = shuffled[(i + 1) % len(shuffled)]
-        pairings[gifter] = giftee
+        pairing = Pairing(gifter=gifter, giftee=giftee, event=event_details)
+        pairings.append(pairing)
+
+    Pairing.objects.bulk_create(pairings)  # Save pairings to the database
     return pairings
 
 

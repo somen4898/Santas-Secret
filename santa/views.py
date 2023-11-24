@@ -39,11 +39,10 @@ class EventDetailsViewSet(viewsets.ModelViewSet):
     serializer_class = EventDetailsSerializer
 
     def perform_create(self, serializer):
-        serializer.save()  # Save event details
+        event_details = serializer.save()  # Save event details
         participants = list(Participant.objects.all())
-        pairings = assign_secret_santas(participants)
+        pairings = assign_secret_santas(participants, event_details)
         pairing_response = generate_pairings_response(participants, pairings)
 
         # Include this response in the JSON output
         self.response = {'event_details': serializer.data, 'pairings': pairing_response}
-

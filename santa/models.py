@@ -22,6 +22,7 @@ class EventDetails(models.Model):
     def __str__(self):
         return f"Event on {self.date} with budget {self.budget}"
 
+
 class Pairing(models.Model):
     gifter = models.ForeignKey(Participant, related_name='gifts_given', on_delete=models.CASCADE)
     giftee = models.ForeignKey(Participant, related_name='gifts_received', on_delete=models.CASCADE)
