@@ -1,0 +1,24 @@
+.idea/
+.vscode/
+*.pyc
+__pycache__/
+.pytest_cache/
+.coverage
+.ropeproject/
+.mypy_cache/
+venv/
+env/
+.venv/
+*.log
+*.swp
+*~
+# Dependency directories (e.g., created by pip)
+lib/
+lib64/
+site-packages/
+dist/
+build/
+.editorconfig
+.env
+.env.*
+cd
