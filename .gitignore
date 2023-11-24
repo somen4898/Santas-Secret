@@ -21,4 +21,3 @@ build/
 .editorconfig
 .env
 .env.*
-cd
