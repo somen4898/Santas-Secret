@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-
+import uuid
 
 def validate_positive(value):
     if value < 0:
@@ -8,6 +8,7 @@ def validate_positive(value):
 
 
 class Participant(models.Model):
+    session_id = models.UUIDField()
     name = models.CharField(max_length=50, )
     email = models.EmailField(unique=True)
 
@@ -16,6 +17,7 @@ class Participant(models.Model):
 
 
 class EventDetails(models.Model):
+    session_id = models.UUIDField()
     budget = models.IntegerField()
     date = models.DateField()
 
@@ -24,6 +26,7 @@ class EventDetails(models.Model):
 
 
 class Pairing(models.Model):
+    session_id = models.UUIDField()
     gifter = models.ForeignKey(Participant, related_name='gifts_given', on_delete=models.CASCADE)
     giftee = models.ForeignKey(Participant, related_name='gifts_received', on_delete=models.CASCADE)
     event = models.ForeignKey(EventDetails, on_delete=models.CASCADE)

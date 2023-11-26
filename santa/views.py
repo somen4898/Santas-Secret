@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from rest_framework import viewsets
 from .models import Participant, EventDetails
 from .serializers import ParticipantSerializer, EventDetailsSerializer
-from .utils import assign_secret_santas, send_secret_santa_emails, \
+from .utils import assign_secret_santas,  \
     generate_pairings_response  # Assuming you have a function to send emails
 import json
 

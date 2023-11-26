@@ -33,7 +33,10 @@ def send_secret_santa_emails(participants, pairings, event_details):
 def generate_pairings_response(participants, pairings):
     pairing_response = []
     for participant in participants:
-        giftee = pairings[participant]
-        pairing_info = {'gifter': participant.name, 'giftee': giftee.name}
-        pairing_response.append(pairing_info)
+        # Assuming 'pairings' is a dictionary where keys are gifter (Participant) and values are giftee (Participant)
+        giftee = pairings.get(participant)
+        if giftee:
+            pairing_info = {'gifter': participant.name, 'giftee': giftee.name}
+            pairing_response.append(pairing_info)
     return pairing_response
+
